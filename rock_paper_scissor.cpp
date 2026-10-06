@@ -18,7 +18,7 @@ int main(){
     }
         else if (random==0 && Choice==1)
     {
-        cout<<"YOU WIN!!";
+        cout<<"YOU WIN!!"; 
     }
        else if (random==1 && Choice==2)
     {

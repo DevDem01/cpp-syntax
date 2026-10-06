@@ -1,5 +1,5 @@
 #Compilation Commands 
-Run these commmands in the terminal to compile the terminal and run your code 
+Run these commmands in the terminal to compile the code and run  
 
 1.g++ rock_paper_scissor.cpp -o rock.exe
 
