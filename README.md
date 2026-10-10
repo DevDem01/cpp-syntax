@@ -38,7 +38,17 @@ Examples in this repository may include:
 
 This repository uses the GNU C++ compiler (`g++`).
 
-Compile a file:
+## Repository Layout
 
-```bash
-g++ main.cpp -o main
+- `lessons/` contains the lecture examples.
+- `exercises/` contains standalone practice programs.
+- `labs/` contains lab work, grouped by lab number.
+- `projects/` contains larger projects such as the MLP example.
+- `build/` contains compiled executables.
+
+Compile and run an exercise from the repository root:
+
+```powershell
+g++ exercises/fizzBuzz.cpp -o build/fizzBuzz.exe
+.\build\fizzBuzz.exe
+```
