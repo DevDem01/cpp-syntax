@@ -1,4 +1,5 @@
-#include <iosfwd>
+#ifndef MYSTRING_H
+#define MYSTRING_H
 
 class MyString {
 private:
@@ -17,6 +18,6 @@ public:
     void setChar(int index, char c);
     void setString(const char* str);
     void print() const;
-
-    friend std::ostream& operator<<(std::ostream& os, const MyString& str);
 };
+
+#endif

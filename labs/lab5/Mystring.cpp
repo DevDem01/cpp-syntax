@@ -1,77 +1,80 @@
+#include "Mystring.h"
+
 #include <iostream>
-#include <cstring>
-using namespace std;
+#include <stdexcept>
 
-class MyString
-{
-private:
-    char *data;
-    int length;
+MyString::MyString() : data(new char[1]{'\0'}), length(0) {}
 
-public:
-    MyString()
-    {
+MyString::MyString(const char* str) : data(nullptr), length(0) {
+    setString(str);
+}
 
-        this->data = new char[1]{'\0'};
-        this->length = 0;
-    };
-    MyString(const char *str)
-    {
-        int count = 0;
-        while (str[count] != '\0')
-        {
-            count++;
-        }
-        this->length = count;
-        this->data = new char[this->length + 1];
-        for (int i = 0; i < count; i++)
-        {
-            data[i] = str[i];
-        }
-        data[count] = '\0';
+MyString::MyString(const MyString& other)
+    : data(new char[other.length + 1]), length(other.length) {
+    for (int i = 0; i < length; ++i) {
+        data[i] = other.data[i];
     }
-    MyString(const MyString &other)
-    {
-        this->length = other.length;
-        this->data = new char[this->length + 1];
-        for (int i = 0; i < length; i++)
-        {
-            data[i] = other.data[i];
-        }
-        data[length] = '\0';
-    }
-    MyString &operator=(const MyString &other)
-    {
-        if (this == &other)
-        {
-            return *this;
-        }
+    data[length] = '\0';
+}
 
-        return *this;
-    }
-    ~MyString()
-    {
+MyString& MyString::operator=(const MyString& other) {
+    if (this != &other) {
+        char* newData = new char[other.length + 1];
+        for (int i = 0; i < other.length; ++i) {
+            newData[i] = other.data[i];
+        }
+        newData[other.length] = '\0';
+
         delete[] data;
+        data = newData;
+        length = other.length;
     }
-    int size() const
-    {
+    return *this;
+}
 
-        return this->length;
-    };
-    char getChar(int index)
-    {
-        for (int i = 0; i < length)
+MyString::~MyString() {
+    delete[] data;
+}
+
+int MyString::size() const {
+    return length;
+}
+
+char MyString::getChar(int index) const {
+    if (index < 0 || index >= length) {
+        throw std::out_of_range("MyString character index is out of range");
+    }
+    return data[index];
+}
+
+void MyString::setChar(int index, char c) {
+    if (index < 0 || index >= length) {
+        throw std::out_of_range("MyString character index is out of range");
+    }
+    data[index] = c;
+}
+
+void MyString::setString(const char* str) {
+    if (str == nullptr) {
+        throw std::invalid_argument("MyString cannot be set from a null pointer");
     }
 
-    ostream &operator<<(ostream &cout, const MyString &s) const
-    {
-        cout << s.data;
-        return cout;
+    int newLength = 0;
+    while (str[newLength] != '\0') {
+        ++newLength;
     }
-    // const char getchar(int index){
-    //       for(int i=0;i<this->data.strlen();i++){
 
-    //       }
+    char* newData = new char[newLength + 1];
+    for (int i = 0; i < newLength; ++i) {
+        newData[i] = str[i];
+    }
+    newData[newLength] = '\0';
 
-    // };
+    delete[] data;
+    data = newData;
+    length = newLength;
+}
+
+void MyString::print() const {
+    std::cout << data << std::endl;
 }
