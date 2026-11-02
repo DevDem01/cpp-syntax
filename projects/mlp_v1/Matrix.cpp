@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+//Create this as a template class and implement std::vector 
 
 
 Matrix::Matrix() {
